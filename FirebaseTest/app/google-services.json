@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "944393407439",
+    "firebase_url": "https://safe-sanitizer.firebaseio.com",
+    "project_id": "safe-sanitizer",
+    "storage_bucket": "safe-sanitizer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944393407439:android:09425001aef867c349e0ba",
+        "android_client_info": {
+          "package_name": "com.example.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944393407439-ssn12d8f57r6c41e232b8d0t4vt5m7b8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebasetest",
+            "certificate_hash": "5be5eca052271de44bb0b9b44f45618ef8e77877"
+          }
+        },
+        {
+          "client_id": "944393407439-kqji6csjmufpfdbl1do1cgdcl889h0lm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNvvfBAHWH1hSd8q0jHx26i9ImyQ1Rs88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944393407439-kqji6csjmufpfdbl1do1cgdcl889h0lm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
