@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseTest">
-        <activity android:name=".FirebaseUIActivity"></activity>
+        <activity android:name=".RegisterPhase3Activity"></activity>
+        <activity android:name=".RegisterPhase2Activity" />
+        <activity android:name=".RegisterPhase1Activity" />
+        <activity android:name=".FirebaseUIActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

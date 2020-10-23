@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "944393407439-r8aota61la4vouhketkje00imdjo4u85.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebasetest",
+            "certificate_hash": "79c924ca4b08115c703dd0b68838375dc30ef244"
+          }
+        },
+        {
           "client_id": "944393407439-ssn12d8f57r6c41e232b8d0t4vt5m7b8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
