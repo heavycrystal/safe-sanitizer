@@ -1,2 +1,2 @@
 # safe-sanitizer
-Savdaan rahiye, sathark rahiye
+Savdaan rahiye, satark rahiye
