@@ -1,14 +1,12 @@
 package com.example.firebasetest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.firebase.ui.auth.AuthUI;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 

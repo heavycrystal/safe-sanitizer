@@ -1,17 +1,17 @@
 package com.example.firebasetest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 public class RegisterPhase2Activity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class RegisterPhase2Activity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
-                        .setAvailableProviders(Arrays.asList(
+                        .setAvailableProviders(Collections.singletonList(
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))
                         .setIsSmartLockEnabled(false)
                         .setTosAndPrivacyPolicyUrls("youtube.com", "github.com")
@@ -50,7 +50,7 @@ public class RegisterPhase2Activity extends AppCompatActivity {
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-                    Snackbar.make(findViewById(android.R.id.content), R.string.sign_in_cancelled, Snackbar.LENGTH_LONG);
+                    Snackbar.make(findViewById(android.R.id.content), R.string.sign_in_cancelled, Snackbar.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -58,18 +58,17 @@ public class RegisterPhase2Activity extends AppCompatActivity {
                 }
 
                 if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    Snackbar.make(findViewById(android.R.id.content), R.string.no_internet_connection, Snackbar.LENGTH_LONG);
+                    Snackbar.make(findViewById(android.R.id.content), R.string.no_internet_connection, Snackbar.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     return;
                 }
 
-                Snackbar.make(findViewById(android.R.id.content), R.string.unknown_error, Snackbar.LENGTH_LONG);
+                Snackbar.make(findViewById(android.R.id.content), R.string.unknown_error, Snackbar.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                return;
             }
         }
     }
