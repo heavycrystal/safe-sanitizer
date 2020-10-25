@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.trial">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,7 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trial">
-        <activity android:name=".Category1"></activity>
+
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <activity
+            android:name=".ViewCategory"
+            android:label="@string/title_activity_category"
+            android:theme="@style/Theme.Trial.NoActionBar" />
+        <activity android:name=".AddCategoryActivity" />
+        <activity android:name=".AddItemActivity" />
         <activity android:name=".Dashboard" />
         <activity
             android:name=".DisplayMessageActivity"
