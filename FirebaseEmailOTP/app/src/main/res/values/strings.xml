@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">FbApp</string>
+  <string name="username">Username</string>
+  <string name="login">Login</string>
+  <string name="email">Email</string>
+  <string name="set_username">Set Username</string>
+  <string name="register">Register</string>
+  <string name="this_will_do_something_i_hope">This will do something. I hope.</string>
+</resources>
