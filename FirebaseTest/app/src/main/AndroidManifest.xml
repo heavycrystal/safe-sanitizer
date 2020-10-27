@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseTest"
         tools:ignore="AllowBackup">
+        <activity android:name=".Phase1VerifyActivity"></activity>
+        <activity android:name=".RegisterPhase1NActivity" />
         <activity android:name=".RegisterPhase3Activity" />
         <activity android:name=".RegisterPhase2Activity" />
         <activity android:name=".RegisterPhase1Activity" />

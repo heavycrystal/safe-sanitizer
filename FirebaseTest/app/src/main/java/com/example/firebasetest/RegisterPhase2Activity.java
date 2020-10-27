@@ -20,16 +20,17 @@ public class RegisterPhase2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_phase2);
-        Log.d("P2", "Phase 2 started");
+        setContentView(R.layout.activity_register_phase1);
+        Log.d("P3", "Phase 3 has started.");
+        Log.d("P3", RegisterPhase1NActivity.userName);
 
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(Collections.singletonList(
-                                new AuthUI.IdpConfig.GoogleBuilder().build()))
+                                new AuthUI.IdpConfig.FacebookBuilder().build()))
                         .setIsSmartLockEnabled(false)
-                        .setTosAndPrivacyPolicyUrls("youtube.com", "github.com")
+                        .setTosAndPrivacyPolicyUrls("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
                         .build(),
                 RC_SIGN_IN);
     }

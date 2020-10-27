@@ -1,21 +1,37 @@
 package com.example.firebasetest;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Collections;
+import java.util.Objects;
 
 public class RegisterPhase1Activity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 420;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser phoneAccount;
+    AuthCredential emailAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +53,13 @@ public class RegisterPhase1Activity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
+        if(requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             // Successfully signed in
-            if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(this, RegisterPhase2Activity.class);
-                startActivity(intent);
-                finish();
+            if(resultCode == RESULT_OK) {
+                    Intent intent = new Intent(this, RegisterPhase2Activity.class);
+                    startActivity(intent);
             }
             else {
                 // Sign in failed

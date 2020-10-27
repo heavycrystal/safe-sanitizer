@@ -17,13 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void login_action(View view) {
-        Snackbar.make(view, "Login not implemented yet.", Snackbar.LENGTH_LONG)
-                .show();
+    public void loginAction(View view) {
+        Snackbar.make(findViewById(android.R.id.content), "Not implemented yet.", Snackbar.LENGTH_LONG).show();
     }
 
-    public void register_action(View view) {
-        Intent intent = new Intent(this, RegisterPhase1Activity.class);
+    public void MainRegisterAction(View view) {
+        Intent intent = new Intent(this, RegisterPhase1NActivity.class);
         startActivity(intent);
     }
 }
