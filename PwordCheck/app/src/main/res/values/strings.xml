@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PwordCheck</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="confirm">Confirm</string>
+    <string name="password">Password</string>
+    <string name="email_id_giu_plox">Email ID Giu Plox</string>
+</resources>

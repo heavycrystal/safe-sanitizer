@@ -1,0 +1,4 @@
+com/example/pwordcheck/BuildConfig.java
+ com.example.pwordcheck.BuildConfig
+com/example/pwordcheck/MainActivity.java
+ com.example.pwordcheck.MainActivity
