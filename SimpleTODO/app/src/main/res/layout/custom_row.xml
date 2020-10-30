@@ -15,7 +15,7 @@
         android:layout_column="0"
         android:layout_margin="5dp"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
-        tools:ignore="NewApi" />
+        tools:ignore="NewApi,UnusedAttribute" />
 
 
     <TextView

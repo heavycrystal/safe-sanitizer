@@ -4,10 +4,10 @@
     android:id="@+id/activity_add_todo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     android:background="@drawable/gradient_list"
     tools:context="AddTODOActivity">
 
@@ -23,7 +23,7 @@
         android:layout_marginTop="24dp"
         android:id="@+id/textView2"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
-        tools:ignore="NewApi" />
+        tools:ignore="NewApi,UnknownId" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_marginTop="11dp"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
-        tools:ignore="NewApi" />
+        tools:ignore="Autofill,NewApi" />
 
     <TextView
         android:text="@string/description"
@@ -68,7 +68,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:hint="@string/description"
         android:enabled="false"
-        tools:ignore="NewApi" />
+        tools:ignore="Autofill,NewApi" />
 
     <TextView
         android:text="@string/due_on"
@@ -98,19 +98,7 @@
         android:focusable="false"
         android:layout_toLeftOf="@+id/buttonCancel"
         android:layout_toStartOf="@+id/buttonCancel"
-        tools:ignore="NewApi,ObsoleteLayoutParam,RtlHardcoded" />
-
-    <!--    <DatePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/datePickerDueDate"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/buttonCancel"
-        android:calendarViewShown="false" />-->
+        tools:ignore="Autofill,NewApi,ObsoleteLayoutParam,RtlHardcoded" />
 
     <EditText
         android:id="@+id/timePickerDueTime"
@@ -128,7 +116,7 @@
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/datePickerDueDate"
         android:layout_toEndOf="@+id/datePickerDueDate"
-        tools:ignore="NewApi,ObsoleteLayoutParam" />
+        tools:ignore="Autofill,NewApi,ObsoleteLayoutParam" />
 
     <Button
         android:text="@string/save"

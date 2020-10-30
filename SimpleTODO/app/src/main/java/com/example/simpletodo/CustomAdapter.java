@@ -4,15 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -40,7 +40,7 @@ public class CustomAdapter extends ArrayAdapter<SimpleTODO> {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
@@ -55,78 +55,61 @@ public class CustomAdapter extends ArrayAdapter<SimpleTODO> {
         imageCompleted = (ImageView) customView.findViewById(R.id.imageButtonCompleted);
 
         imageEdit.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SimpleTODO singleItem = getItem(position);
-                        Intent editIntent = new Intent("AddTODOActivity");
-                        editIntent.putExtra("data",singleItem);
-                        v.getContext().getApplicationContext().startActivity(editIntent);
-                    }
+                v -> {
+                    SimpleTODO singleItem1 = getItem(position);
+                    Intent editIntent = new Intent("AddTODOActivity");
+                    editIntent.putExtra("data", singleItem1);
+                    v.getContext().getApplicationContext().startActivity(editIntent);
                 }
         );
 
         imageCompleted.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SimpleTODO singleItem = getItem(position);
-                        if(Objects.requireNonNull(singleItem).IsCompleted()) {
-                            singleItem.SetAsNotStarted();
-                            Toast.makeText(v.getContext(), singleItem.getTitle() + " set as not completed!", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            singleItem.SetAsCompleted();
-                            Toast.makeText(v.getContext(), singleItem.getTitle() + " has been completed!", Toast.LENGTH_SHORT).show();
-                        }
-
-                        NotificationManager manager = (NotificationManager) v.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                        assert manager != null;
-                        manager.cancel(singleItem.getId().intValue());
-
-                        Intent intent = new Intent("ListViewDataUpdated");
-                        LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+                v -> {
+                    SimpleTODO singleItem12 = getItem(position);
+                    if(Objects.requireNonNull(singleItem12).IsCompleted()) {
+                        singleItem12.SetAsNotStarted();
+                        Toast.makeText(v.getContext(), singleItem12.getTitle() + " set as not completed!", Toast.LENGTH_SHORT).show();
                     }
+                    else {
+                        singleItem12.SetAsCompleted();
+                        Toast.makeText(v.getContext(), singleItem12.getTitle() + " has been completed!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    NotificationManager manager = (NotificationManager) v.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    assert manager != null;
+                    manager.cancel(singleItem12.getId().intValue());
+
+                    Intent intent = new Intent("ListViewDataUpdated");
+                    LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
                 }
         );
 
         imageDelete.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                v -> {
 
-                        /*
-                        View parentView = (View) v.getParent();
-                        TextView t = (TextView)  parentView.findViewById(R.id.textViewTitle);
-                        String s = t.getText().toString();
-                        */
+                    //Put up the Yes/No message box
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CustomAdapter.this.getContext());
+                    builder
+                            .setTitle("Delete TODO's")
+                            .setMessage("Are you sure? This action cannot be undone. You will lose your memory foreva.")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                SimpleTODO singleItem13 = getItem(position);
+                                if (Objects.requireNonNull(singleItem13).Delete()) {
+                                    Toast.makeText(CustomAdapter.this.getContext(), singleItem13.getTitle()+" has been deleted!", Toast.LENGTH_SHORT).show();
 
-                        //Put up the Yes/No message box
-                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomAdapter.this.getContext());
-                        builder
-                                .setTitle("Delete TODO's")
-                                .setMessage("Are you sure? This action cannot be undone. You will lose your memory foreva.")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        SimpleTODO singleItem = getItem(position);
-                                        if (Objects.requireNonNull(singleItem).Delete()) {
-                                            Toast.makeText(CustomAdapter.this.getContext(), singleItem.getTitle()+" has been deleted!", Toast.LENGTH_SHORT).show();
+                                    NotificationManager manager = (NotificationManager)CustomAdapter.this.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                                    assert manager != null;
+                                    manager.cancel(singleItem13.getId().intValue());
 
-                                            NotificationManager manager = (NotificationManager)CustomAdapter.this.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                                            assert manager != null;
-                                            manager.cancel(singleItem.getId().intValue());
-
-                                            Intent intent = new Intent("ListViewDataUpdated");
-                                            LocalBroadcastManager.getInstance(CustomAdapter.this.getContext()).sendBroadcast(intent);
-                                        }
-                                        else{
-                                            Toast.makeText(CustomAdapter.this.getContext(), "Unable to delete Reminder", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                })
-                                .setNegativeButton("No", null)
-                                .show();
-                    }
+                                    Intent intent = new Intent("ListViewDataUpdated");
+                                    LocalBroadcastManager.getInstance(CustomAdapter.this.getContext()).sendBroadcast(intent);
+                                }
+                                else{
+                                    Toast.makeText(CustomAdapter.this.getContext(), "Unable to delete Reminder", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
                 }
         );
 
@@ -142,19 +125,11 @@ public class CustomAdapter extends ArrayAdapter<SimpleTODO> {
             imageEdit.setEnabled(false);
 
             Resources res = getContext().getResources();
-            Drawable img = res.getDrawable(R.drawable.ic_action_edit_disabled);
+            @SuppressLint("UseCompatLoadingForDrawables") Drawable img = res.getDrawable(R.drawable.ic_action_edit_disabled);
             imageEdit.setImageDrawable(img);
             img = res.getDrawable(R.drawable.ic_action_undo);
             imageCompleted.setImageDrawable(img);
         }
-
-        /*
-        else
-        {
-           itemTitle.setPaintFlags(itemTitle.getPaintFlags() | (~Paint.STRIKE_THRU_TEXT_FLAG));
-           itemDue.setPaintFlags(itemDue.getPaintFlags() | (~Paint.STRIKE_THRU_TEXT_FLAG));
-        }
-        */
 
         return customView;
     }

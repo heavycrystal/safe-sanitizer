@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MyTODOsActivity extends AppCompatActivity {
 
@@ -30,22 +29,16 @@ public class MyTODOsActivity extends AppCompatActivity {
         loadListView();
 
         mainListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String item = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(MyTODOsActivity.this, "Clicked: "+item, Toast.LENGTH_SHORT).show();
-                    }
+                (parent, view, position, id) -> {
+                    String item = String.valueOf(parent.getItemAtPosition(position));
+                    Toast.makeText(MyTODOsActivity.this, "Clicked: "+item, Toast.LENGTH_SHORT).show();
                 }
         );
 
         actionButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent addIntent = new Intent("AddTODOActivity");
-                        startActivity(addIntent);
-                    }
+                v -> {
+                    Intent addIntent = new Intent("AddTODOActivity");
+                    startActivity(addIntent);
                 }
         );
 
@@ -62,7 +55,6 @@ public class MyTODOsActivity extends AppCompatActivity {
         loadListView();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("ListViewDataUpdated"));
     }
-
 
     @Override
     protected void onPause() {
