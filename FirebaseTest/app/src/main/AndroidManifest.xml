@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.firebasetest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseTest"
         tools:ignore="AllowBackup">
-        <activity android:name=".Phase1VerifyActivity"></activity>
+        <activity android:name=".SendgridTestActivity"></activity>
+        <activity android:name=".PwordcheckActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterPhase1NActivity" />
         <activity android:name=".RegisterPhase3Activity" />
         <activity android:name=".RegisterPhase2Activity" />

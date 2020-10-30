@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
@@ -22,8 +21,13 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.security.MessageDigest;
 import java.util.Collections;
 import java.util.Objects;
+
+import static com.example.firebasetest.SendgridTestActivity.userEmail;
+import static com.example.firebasetest.SendgridTestActivity.userName;
+import static com.example.firebasetest.SendgridTestActivity.userPassword;
 
 public class RegisterPhase1Activity extends AppCompatActivity {
 
@@ -50,6 +54,38 @@ public class RegisterPhase1Activity extends AppCompatActivity {
                 RC_SIGN_IN);
     }
 
+    public static String sha256(String base) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        }
+        catch(Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+     OnCompleteListener linking_handler = new OnCompleteListener<AuthResult>() {
+         @Override
+         public void onComplete(@NonNull Task<AuthResult> task) {
+             if (task.isSuccessful()) {
+                 Intent intent = new Intent(RegisterPhase1Activity.this, RegisterPhase2Activity.class);
+                 startActivity(intent);
+             }
+             else { // cry
+                 Toast.makeText(RegisterPhase1Activity.this, "Fatal error occured during registration process.", Toast.LENGTH_LONG).show();
+             }
+         }
+     };
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -58,8 +94,10 @@ public class RegisterPhase1Activity extends AppCompatActivity {
 
             // Successfully signed in
             if(resultCode == RESULT_OK) {
-                    Intent intent = new Intent(this, RegisterPhase2Activity.class);
-                    startActivity(intent);
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    phoneAccount = firebaseAuth.getCurrentUser();
+                    emailAccount = EmailAuthProvider.getCredential(userEmail, sha256(userName + userPassword));
+                    phoneAccount.linkWithCredential(emailAccount).addOnCompleteListener(linking_handler);
             }
             else {
                 // Sign in failed

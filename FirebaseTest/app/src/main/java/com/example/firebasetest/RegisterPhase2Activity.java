@@ -10,6 +10,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.ActionCodeSettings;
 
 import java.util.Collections;
 
@@ -24,11 +25,15 @@ public class RegisterPhase2Activity extends AppCompatActivity {
         Log.d("P3", "Phase 3 has started.");
         Log.d("P3", RegisterPhase1NActivity.userName);
 
+        ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
+                .setAndroidPackageName("com.example.firebasetest", /*installIfNotAvailable*/true, /*minimumVersion*/null)
+                .build();
+
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(Collections.singletonList(
-                                new AuthUI.IdpConfig.FacebookBuilder().build()))
+                                new AuthUI.IdpConfig.EmailBuilder().enableEmailLinkSignIn().setActionCodeSettings(actionCodeSettings).build()))
                         .setIsSmartLockEnabled(false)
                         .setTosAndPrivacyPolicyUrls("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
                         .build(),

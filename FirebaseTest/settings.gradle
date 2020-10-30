@@ -1,2 +1,3 @@
+include ':sendgrid-java'
 include ':app'
 rootProject.name = "FirebaseTest"

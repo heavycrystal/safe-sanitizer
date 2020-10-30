@@ -18,4 +18,5 @@
     <string name="password_input">Password:</string>
     <string name="cpassword_input">Confirm password:</string>
     <string name="phase1_button">Verify</string>
+    <string name="sendgrid_api_key" translatable="false">"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"</string>
 </resources>
