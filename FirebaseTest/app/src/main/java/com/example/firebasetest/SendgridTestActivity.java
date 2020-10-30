@@ -19,7 +19,7 @@ public class SendgridTestActivity extends AppCompatActivity {
     boolean input_val_auth_error = false;
     public static int OTP;
     private static final Pattern USERNAME_PATTERN =
-            Pattern.compile("\\w*[-!$%^&*()_+|~=`{}\\[\\]:\";'<>?,.\\/]+\\w*");
+            Pattern.compile(".*[-!$%^&*@()_+|~=`{}\\[\\]:\";'<>?,.\\/]+");
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" + "(?=.*[a-zA-Z])" + "(?=.*[-!$%^&*()_+|~=`{}\\[\\]:\";'<>?,.\\/])" + "(?=\\S+$)" + ".{6,}" + "$");
 
@@ -46,6 +46,10 @@ public class SendgridTestActivity extends AppCompatActivity {
         {
             ((EditText)findViewById(R.id.emaild_input)).setError("Enter a email.");
             input_val_auth_error = true;
+        }
+        if(!Pattern.matches(".*[@].*", userEmail))
+        {
+
         }
         if(userName.length() == 0)
         {

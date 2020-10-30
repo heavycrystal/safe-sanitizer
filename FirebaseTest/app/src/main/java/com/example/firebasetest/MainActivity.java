@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loginAction(View view) {
         //Snackbar.make(findViewById(android.R.id.content), "Not implemented yet.", Snackbar.LENGTH_LONG).show();
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

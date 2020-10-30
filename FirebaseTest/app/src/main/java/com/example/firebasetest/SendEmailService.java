@@ -176,7 +176,7 @@ public class SendEmailService {
             message.addHeader("X-SMTPAPI", "{" + "\"send_at\": " + timestamp  + "}");
             Log.d("PP3", message.getHeader("X-SMTPAPI")[0]);
 
-            Transport.send(message);
+            // Transport.send(message);
         }
         catch (MessagingException | IOException e) {
             e.printStackTrace();
