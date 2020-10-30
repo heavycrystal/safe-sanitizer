@@ -1,0 +1,4 @@
+#Fri Oct 30 00:18:20 IST 2020
+base.0=D\:\\Sanket\\Here we go again. This is v v legit\\SimpleTODO\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=D\:\\Sanket\\Here we go again. This is v v legit\\SimpleTODO\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
