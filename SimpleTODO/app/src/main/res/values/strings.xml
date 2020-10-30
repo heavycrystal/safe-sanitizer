@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Ay Yo Bitch. Remember</string>
+    <string name="title">Title</string>
+    <string name="duedate">DueDate</string>
+    <string name="menu_about">About</string>
+    <string name="menu_delete_completed_todo_s">Delete Completed TODO\'s</string>
+    <string name="menu_show_hide_completed_todo_s">Show/Hide Completed TODO\'s</string>
+    <string name="menu_sort_due">Sort By Due Date</string>
+    <string name="menu_sort_title">Sort By Title</string>
+    <string name="update_todo">Update TODO</string>
+    <string name="add_new_todo">Add New TODO</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="date">Date</string>
+    <string name="description">Description</string>
+    <string name="due_on">Due On</string>
+    <string name="time">Time</string>
+    <string name="when">When?</string>
+</resources>
