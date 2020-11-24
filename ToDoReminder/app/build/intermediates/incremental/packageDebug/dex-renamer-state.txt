@@ -1,0 +1,4 @@
+#Tue Nov 24 23:03:17 IST 2020
+base.0=D\:\\Finall\\To-Do-Reminder-master\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=D\:\\Finall\\To-Do-Reminder-master\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

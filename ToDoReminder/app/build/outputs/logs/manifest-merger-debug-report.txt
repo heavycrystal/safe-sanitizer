@@ -1,0 +1,109 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:2:1-30:12
+	package
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:4:5-27
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:3:5-51
+	xmlns:android
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+application
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:6:5-28:19
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Sanke\.android\build-cache\3426d1f9023807b09a1b1e04ca43cb15030e953c\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Sanke\.android\build-cache\8406d3d296868d165c39dbdea58cb3342289ef90\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Sanke\.android\build-cache\d4a2a56bac0b4dc88b8b87ddea8e38784f84ba5e\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Sanke\.android\build-cache\09adb036996f47d80717988da0ff6b3b42417548\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Sanke\.android\build-cache\109665caac22f1b8116345e87227b014cf591d56\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Sanke\.android\build-cache\33fe8560f424b8aba9a59f8b92951365386aa4ee\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Sanke\.android\build-cache\3b71be1455ef334fa4684e13f5c1d7fdc2eeb46f\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Sanke\.android\build-cache\6624f9b5e9e52db1ff43e7a4510bcba535752b70\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Sanke\.android\build-cache\de49691682adce84c792d6abb8ce8596bab3fbb2\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Sanke\.android\build-cache\ba71dfce3346bab0b932109618fc051dafdeb483\output\AndroidManifest.xml:9:5-20
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\Sanke\.android\build-cache\03b17ad66a59bf84dee3aecccced116d3fac2297\output\AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:9:9-41
+	android:supportsRtl
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:11:9-35
+	android:roundIcon
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:10:9-54
+	tools:ignore
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:13:9-35
+	android:allowBackup
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:7:9-35
+	android:icon
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:8:9-43
+	android:theme
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:12:9-40
+activity#gupta.p.todo.main.MainActivity
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:14:9-20:20
+	android:name
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:14:19-52
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:15:13-19:29
+action#android.intent.action.MAIN
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:18:17-77
+	android:name
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:18:27-74
+activity#gupta.p.todo.main.Edit
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:21:9-47
+	android:name
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:21:19-44
+receiver#gupta.p.todo.main.MyBroadCastReceiver
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:22:9-27:20
+	tools:ignore
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:23:13-44
+	android:name
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:22:19-59
+intent-filter#i.love.myself
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:24:13-26:29
+action#i.love.myself
+ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:25:17-56
+	android:name
+		ADDED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml:25:25-53
+uses-sdk
+INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Sanke\.android\build-cache\3426d1f9023807b09a1b1e04ca43cb15030e953c\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Sanke\.android\build-cache\8406d3d296868d165c39dbdea58cb3342289ef90\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Sanke\.android\build-cache\d4a2a56bac0b4dc88b8b87ddea8e38784f84ba5e\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Sanke\.android\build-cache\09adb036996f47d80717988da0ff6b3b42417548\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Sanke\.android\build-cache\109665caac22f1b8116345e87227b014cf591d56\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Sanke\.android\build-cache\33fe8560f424b8aba9a59f8b92951365386aa4ee\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Sanke\.android\build-cache\3b71be1455ef334fa4684e13f5c1d7fdc2eeb46f\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Sanke\.android\build-cache\6624f9b5e9e52db1ff43e7a4510bcba535752b70\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Sanke\.android\build-cache\de49691682adce84c792d6abb8ce8596bab3fbb2\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Sanke\.android\build-cache\ba71dfce3346bab0b932109618fc051dafdeb483\output\AndroidManifest.xml:5:5-7:41
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\Sanke\.android\build-cache\03b17ad66a59bf84dee3aecccced116d3fac2297\output\AndroidManifest.xml:5:5-7:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Sanke\.android\build-cache\3426d1f9023807b09a1b1e04ca43cb15030e953c\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Finall\To-Do-Reminder-master\app\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Sanke\.android\build-cache\3426d1f9023807b09a1b1e04ca43cb15030e953c\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Sanke\.android\build-cache\8406d3d296868d165c39dbdea58cb3342289ef90\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Sanke\.android\build-cache\d4a2a56bac0b4dc88b8b87ddea8e38784f84ba5e\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Sanke\.android\build-cache\09adb036996f47d80717988da0ff6b3b42417548\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Sanke\.android\build-cache\109665caac22f1b8116345e87227b014cf591d56\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Sanke\.android\build-cache\33fe8560f424b8aba9a59f8b92951365386aa4ee\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Sanke\.android\build-cache\3b71be1455ef334fa4684e13f5c1d7fdc2eeb46f\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Sanke\.android\build-cache\6624f9b5e9e52db1ff43e7a4510bcba535752b70\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Sanke\.android\build-cache\de49691682adce84c792d6abb8ce8596bab3fbb2\output\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Sanke\.android\build-cache\3426d1f9023807b09a1b1e04ca43cb15030e953c\output\AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Sanke\.android\build-cache\3426d1f9023807b09a1b1e04ca43cb15030e953c\output\AndroidManifest.xml:26:9-47
