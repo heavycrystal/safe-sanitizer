@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">FirebaseTest</string>
+    <string name="welcome_message">Welcome to Safe-Sanitizer!</string>
+    <string name="welcome_desc">This app will eventually do things. We hope.</string>
+    <string name="register_button">Register</string>
+    <string name="login_button">Login</string>
+    <string name="facebook_application_id" translatable="false">786651441909103</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb786651441909103</string>
+    <string name="registration_phase1">Proceeding to SMS based OTP verification…</string>
+    <string name="sign_in_cancelled">The registration attempt was cancelled.</string>
+    <string name="no_internet_connection">No internet connection was found. Registration cancelled.</string>
+    <string name="unknown_error">An unknown error occurred, registration cancelled.</string>
+    <string name="registration_phase2">Proceeding to Google based OTP Verification…</string>
+    <string name="return_back">Return</string>
+    <string name="go_away">An Unknown error occurred, kindly go away and let us work</string>
+    <string name="email_input">Email address:</string>
+    <string name="user_input">Username:</string>
+    <string name="password_input">Password:</string>
+    <string name="cpassword_input">Confirm password:</string>
+    <string name="phase1_button">Verify</string>
+    <string name="sendgrid_api_key" translatable="false">"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"</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+</resources>
