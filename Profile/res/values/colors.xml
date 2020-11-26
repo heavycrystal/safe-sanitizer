@@ -8,4 +8,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whatsapp">#88FFCC</color>
+    <color name="email">#FF7777</color>
+    <color name="pastelpink">#F8E2EA
+    </color>
 </resources>
