@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DBUser"
+    android:padding="20dp"
+    android:theme="@style/Theme.Trial">
+
+    <EditText
+        android:id="@+id/editItemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name" />
+
+    <EditText
+        android:id="@+id/editItemUnit"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editItemName"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginRight="18dp"
+        android:ems="10"
+        android:hint="Unit"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/priceView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editItemName"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="43dp"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="numberDecimal" />
+
+    <NumberPicker
+        android:id="@+id/editItemAmount"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/editItemName"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toStartOf="@+id/editItemUnit"
+        android:baselineAligned="true"
+        android:divider="@drawable/button_custom_dark"
+        android:dividerPadding="10dp"
+        android:rotation="0"
+        android:rotationX="0"
+        android:rotationY="0"
+        android:soundEffectsEnabled="true"
+        android:theme="@style/Theme.AppCompat.Light.Dialog">
+
+    </NumberPicker>
+
+    <Button
+        android:id="@+id/sanket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editItemName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="117dp"
+        android:layout_marginEnd="26dp"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+</RelativeLayout>

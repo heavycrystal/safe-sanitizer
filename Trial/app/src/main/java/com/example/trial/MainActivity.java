@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
     public static String USER = "user1"; //updated on login
     private static final String TAG = null;
 
-    //DBHelper helper;
     Map<String, ItemData> item = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //directly goes to dashboard
         Intent intent = new Intent(this, Dashboard.class);
         startActivity(intent);
     }

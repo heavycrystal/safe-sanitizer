@@ -11,8 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Trial">
+        android:theme="@style/Theme.Trial.NoActionBar">
+        <activity android:name=".DBUser">
 
+        </activity>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -25,9 +27,17 @@
             android:name=".ViewCategory"
             android:label="@string/title_activity_category"
             android:theme="@style/Theme.Trial.NoActionBar" />
-        <activity android:name=".AddCategoryActivity" />
-        <activity android:name=".AddItemActivity" />
-        <activity android:name=".Dashboard" />
+        <activity android:name=".Dashboard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".DisplayMessageActivity"
             android:parentActivityName=".MainActivity">
@@ -37,13 +47,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_dash"
+            android:icon="@drawable/basket"
+            android:title="Dashboard" />
+
+        <item
+            android:id="@+id/nav_reminder"
+            android:icon="@drawable/reminder_icon"
+            android:title="Reminder" />
+
+        <item
+            android:id="@+id/nav_ToDo"
+            android:icon="@drawable/todo_icon"
+            android:title="To Do List" />
+
+        <item
+            android:id="@+id/nav_Expense"
+            android:icon="@drawable/money"
+            android:title="Expense Calculator" />
+
+    </group>
+
+
+    <item android:title="Profile">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_login"
+                    android:icon="@drawable/login"
+                    android:title="Login" />
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout"
+                    android:title="Logout" />
+
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/profile"
+                    android:title="Profile" />
+            </group>
+
+        </menu>
+
+    </item>
+
+    <item android:title="Communicate">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/about_us"
+                    android:title="About Us" />
+
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/share"
+                    android:title="Share" />
+
+            </group>
+
+        </menu>
+
+    </item>
+
+</menu>
