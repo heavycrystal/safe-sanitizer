@@ -1,10 +1,12 @@
 package com.example.snazzy;
+//Ankita's Dashboard
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,45 +15,69 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
-public class Dashboard extends AppCompatActivity implements com.example.snazzy.AddCategoryDialog.CatDialogListener, ShareGroceryDialog.SharedGroceryListener{
+public class Dashboard extends AppCompatActivity implements AddCategoryDialog.CatDialogListener, ShareGroceryDialog.SharedGroceryListener{
     DBHelper mydb = new DBHelper(this);
     View view;
     Button btn;
     Intent intent;
+    FloatingActionButton dashSearch;
+    public static String USERNAME;
+    public static String PROFESSION;
 
     int width=1080;
     private String DELCAT;
-    Uri imageUri, plain=null;
     ArrayList<String> catList;
-
-    public String username = "user1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+
+        USERNAME = MainActivity.USERNAME;
+        Log.d("USERNAME", USERNAME);
+        PROFESSION = MainActivity.PROFESSION;
+        Log.d("PROFESSION", PROFESSION);
+
+        if(PROFESSION==null)
+            PROFESSION="Homemaker";
+        else if(PROFESSION.equals("Student")) {
+            setContentView(R.layout.student_dashboard_activity);
+            if(mydb.getCategories(USERNAME).size()==0){
+                mydb.addCategory(USERNAME, "Stationery");
+                mydb.addCategory(USERNAME, "Snacks");
+                mydb.addCategory(USERNAME, "Books");
+            }
+        }
+        else if(PROFESSION.equals("Professional")) {
+            setContentView(R.layout.professional_dashboard_activity);
+            if(mydb.getCategories(USERNAME).size()==0){
+                mydb.addCategory(USERNAME, "Office Supplies");
+                mydb.addCategory(USERNAME, "Medicines");
+                mydb.addCategory(USERNAME, "Bills");
+                mydb.addCategory(USERNAME, "Groceries");
+            }
+        }
+        else if(PROFESSION.equals("Homemaker")) {
+            setContentView(R.layout.homemaker_dashboard_activity);
+            if(mydb.getCategories(USERNAME).size()==0){
+                mydb.addCategory(USERNAME, "Groceries");
+                mydb.addCategory(USERNAME, "Medicines");
+                mydb.addCategory(USERNAME, "Bills");
+                mydb.addCategory(USERNAME, "Childcare");
+            }
+        }
+
         createDashboard();
+
         intent = getIntent();
         DELCAT = intent.getStringExtra("DELCAT");
         if(DELCAT!=null)
             Toast.makeText(this, "Deleted category "+DELCAT, Toast.LENGTH_SHORT).show();
 
-    }
-    private void createDashboard(){
-        int r=0, c=0;
-        GridLayout gl = findViewById(R.id.gl);
-        gl.removeAllViews();
-        DisplayMetrics displayMetrics = getApplication().getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        Log.d("dimens", String.valueOf(dpHeight)+" "+String.valueOf(dpWidth));
-        catList=mydb.getCategories(username);
         //Adding FloatingActionButton onClick
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,9 +86,31 @@ public class Dashboard extends AppCompatActivity implements com.example.snazzy.A
                 showCatDialog(view);
             }
         });
+
+        dashSearch = findViewById(R.id.dashSearch);
+        dashSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSearchDialog(view);
+            }
+        });
+
+    }
+    private void createDashboard(){
+        int r=0, c=0;
+        GridLayout gl = findViewById(R.id.gl);
+        gl.removeAllViews();
+        catList=mydb.getCategories(USERNAME);
+
         for(String cat: catList) {
 
-            view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.category_view, null);
+            if(PROFESSION.equals("Student"))
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.student_category_layout, null);
+            else if(PROFESSION.equals("Professional"))
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.professional_category_layout, null);
+            else if(PROFESSION.equals("Homemaker"))
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.homemaker_category_layout, null);
+
             btn = view.findViewById(R.id.buttonName);
             btn.setText(cat);
             btn.setTag(cat);
@@ -75,7 +123,7 @@ public class Dashboard extends AppCompatActivity implements com.example.snazzy.A
             btn.setMinimumHeight(width / 2);
             final Typeface face = ResourcesCompat.getFont(getApplicationContext(), R.font.viga);
             btn.setTypeface(face);
-            view.setPadding(40,0,40,70);
+            view.setPadding(35,0,35,70);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -96,28 +144,47 @@ public class Dashboard extends AppCompatActivity implements com.example.snazzy.A
         createDashboard();
         //Refresh your stuff here
     }
+    public void showSearchDialog(View view){
+        SearchDialog dialog = new SearchDialog();
+        dialog.show(getSupportFragmentManager(), "dialog");
+    }
     public void openShareDialog(View view){
         ShareGroceryDialog dialog = new ShareGroceryDialog();
         dialog.show(getSupportFragmentManager(), "dialog");
     }
     public void goToCategory(View view){
-        intent = new Intent(this, com.example.snazzy.ViewCategory.class);
-        intent.putExtra(com.example.snazzy.MainActivity_Ankita.MESSAGE, (String)view.getTag());
+        intent = new Intent(this, ViewCategory.class);
+        intent.putExtra(MainActivity.MESSAGE, (String)view.getTag());
         startActivity(intent);
     }
     public void showCatDialog(View view) {
-        com.example.snazzy.AddCategoryDialog newDialog = new com.example.snazzy.AddCategoryDialog();
+        AddCategoryDialog newDialog = new AddCategoryDialog();
         newDialog.show(getSupportFragmentManager(), "dialog");
     }
     @Override
     public void sendCatName(String categoryName) {
-        mydb.addCategory(username, categoryName);
+        mydb.addCategory(USERNAME, categoryName);
         //add toast
         createDashboard();
     }
     @Override
     public void sendConfirmation(boolean shared){
         if(shared==true)
-            Toast.makeText(getApplicationContext(), "Shared!", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "Shared!", Toast.LENGTH_SHORT).show();
+    }
+    public void setUserAndProfession(){
+        mydb = new DBHelper(getApplicationContext());
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if(currentUser != null)
+        {
+            String userEmail = currentUser.getEmail();
+            Log.e("EMAIL", userEmail);
+            mydb = new DBHelper(getApplicationContext());
+            USERNAME = mydb.getUsername(userEmail);
+            PROFESSION = mydb.getProf(USERNAME);
+           Log.d("SET", "user and profession");
+        }
     }
 }

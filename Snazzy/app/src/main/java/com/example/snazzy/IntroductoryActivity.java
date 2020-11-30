@@ -1,5 +1,6 @@
 package com.example.snazzy;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,9 +61,9 @@ public class IntroductoryActivity extends AppCompatActivity {
         viewPager.startAnimation(anim);
 
         splashImg.animate().translationY(-2500).setDuration(1500).setStartDelay(4000);
-        logo.animate().translationY(1400).setDuration(1500).setStartDelay(4000);
-        appName.animate().translationY(1400).setDuration(1500).setStartDelay(4000);
-        lottieAnimationView.animate().translationY(1400).setDuration(1500).setStartDelay(4000);
+        logo.animate().translationY(1600).setDuration(1500).setStartDelay(4000);
+        appName.animate().translationY(1600).setDuration(1500).setStartDelay(4000);
+        lottieAnimationView.animate().translationY(1600).setDuration(1500).setStartDelay(4000);
         new Handler(Looper.myLooper()).postDelayed(() -> {
             msharedPref=getSharedPreferences("SharedPrefs", MODE_PRIVATE);
             boolean isFirstTime=msharedPref.getBoolean("firstTime", true);

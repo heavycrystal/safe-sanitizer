@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llCardBack"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:backgroundTintMode="multiply"
+    android:foregroundTintMode="multiply"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <Button
+        android:id="@+id/item"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/button_custom_dark"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="add"
+        android:fontFamily="@font/viga"
+        android:paddingLeft="30dp"
+        android:paddingRight="25dp"
+        android:shadowColor="#000000"
+        android:text="ITEM"
+        android:textAlignment="textStart"
+        android:textColor="#F9A825"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:backgroundTint="#FFFFFF"
+        app:backgroundTintMode="add">
+
+    </Button>
+
+    <TextView
+        android:id="@+id/qtyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/item"
+        android:layout_alignEnd="@+id/item"
+        android:layout_alignBottom="@+id/item"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="10dp"
+        android:text="TextView"
+        android:textColor="#F9A825"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/priceView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/item"
+        android:layout_alignBottom="@+id/item"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="19dp"
+        android:layout_toStartOf="@+id/qtyView"
+        android:elevation="10dp"
+        android:text="TextView"
+        android:textColor="#F9A825"
+        android:textSize="14sp" />
+
+</RelativeLayout>

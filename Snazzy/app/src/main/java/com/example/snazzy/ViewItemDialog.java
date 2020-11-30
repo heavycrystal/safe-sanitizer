@@ -35,6 +35,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ViewItemDialog extends AppCompatDialogFragment {
     private static final int PICK_FILE = 14;
+    public static String DEF_IMAGE = ViewCategory.DEF_IMAGE;
     private DBHelper db;
     private static String USERNAME, CATEGORY, ITEM;
     private ArrayList<String> itemData;
@@ -44,7 +45,7 @@ public class ViewItemDialog extends AppCompatDialogFragment {
     private EditText priceInput;
     private EditText unit;
     private Button uploadButton, upBtn, downBtn;
-    private Button whatsApp, eMail;
+    private Button whatsApp, eMail, setRem;
     private TextView upNum, midNum, downNum;
 
     //initialize to values from database
@@ -69,9 +70,10 @@ public class ViewItemDialog extends AppCompatDialogFragment {
         itemPrice=Integer.parseInt(itemData.get(0));
         itemQty=Integer.parseInt(itemData.get(1));
         itemUnit = itemData.get(2);
-        imageUri=Uri.parse(itemData.get(3));
+        imageUri = Uri.parse(itemData.get(3));
+        Log.d("Default Image URI", itemData.get(3));
         croppedImageUri=null;
-        image=getFileNameByUri(imageUri);
+        image = getFileNameByUri(imageUri);
 
         //enter data into dialog box
         nameInput = view.findViewById(R.id.editItemName);
@@ -90,7 +92,6 @@ public class ViewItemDialog extends AppCompatDialogFragment {
         unit.setText(itemUnit);
         imageView = view.findViewById(R.id.imageView);
         Glide.with(getContext()).load(imageUri).centerCrop().into(imageView);
-        imageView.setBackgroundResource(R.drawable.details_background);
 
         //making the CustomNumberPicker
         {
@@ -155,7 +156,14 @@ public class ViewItemDialog extends AppCompatDialogFragment {
         eMail.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> emailBody = getEmailContent();
+                shareViaEmail();
+            }
+        });
+        setRem = view.findViewById(R.id.setRem);
+        setRem.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setReminder();
             }
         });
 
@@ -171,7 +179,7 @@ public class ViewItemDialog extends AppCompatDialogFragment {
                             itemPrice = Integer.parseInt(priceInput.getText().toString());
                         itemUnit = unit.getText().toString();
                         itemQty = Integer.parseInt(midNum.getText().toString());
-                            Log.d("QTY", String.valueOf(itemQty));
+                        Log.d("QTY", String.valueOf(itemQty));
 
                         if(!itemName.equals("") && itemPrice!=0 && itemQty!=0){
                             if(croppedImageUri!=null)
@@ -191,9 +199,9 @@ public class ViewItemDialog extends AppCompatDialogFragment {
                 .setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         listener.sendDeletedItemName(ITEM);
-                }
+                    }
 
-        });
+                });
         // Create the AlertDialog object and return it
         return builder.create();
     }
@@ -229,29 +237,36 @@ public class ViewItemDialog extends AppCompatDialogFragment {
             imageUri = resultData.getData();
             image = getFileNameByUri(imageUri);
             Glide.with(getContext()).load(imageUri).centerCrop().into(imageView);
-        }
 
-        try
-        {
-            File temp_file = File.createTempFile("image", ".jpg");
-            Log.e("Epp", temp_file.canRead() + " " + temp_file.canWrite() + " " + temp_file.canExecute());
-            croppedImageUri = Uri.fromFile(temp_file);
-        }
-        catch(Exception e)
-        {
-            Log.d("whoops!", "file exception");
-        }
-        Log.d("dj", imageUri.toString());
-        UCrop.of(imageUri, croppedImageUri)
-                .withAspectRatio(1, 1)
-                .withMaxResultSize(500, 500)
-                .start(getActivity());
+            try {
+                File temp_file = File.createTempFile("image", ".jpg");
+                Log.e("Epp", temp_file.canRead() + " " + temp_file.canWrite() + " " + temp_file.canExecute());
+                croppedImageUri = Uri.fromFile(temp_file);
+            } catch (Exception e) {
+                Log.d("whoops!", "file exception");
+            }
+            Log.d("dj", imageUri.toString());
+            UCrop.of(imageUri, croppedImageUri)
+                    .withAspectRatio(1, 1)
+                    .withMaxResultSize(500, 500)
+                    .start(getActivity());
+            String suggestion = TensorflowTest.infer_image(imageUri, getContext());
+            nameInput.setHint(suggestion);
+            nameInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (nameInput.getText() == null)
+                        nameInput.setText(suggestion);
+                }
+            });
+            Log.e("Tag", suggestion);
 
 
-        if(resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            Uri resultUri = UCrop.getOutput(resultData);
-            Log.d("Epp", resultUri.toString());
+            if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+                Uri resultUri = UCrop.getOutput(resultData);
+                Log.d("Epp", resultUri.toString());
 
+            }
         }
     }
     public String getFileNameByUri(Uri uri)
@@ -292,16 +307,19 @@ public class ViewItemDialog extends AppCompatDialogFragment {
         intent.setAction(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, message);
         intent.setType("text/plain");
-
-        File file = new File(imageUri.getPath());
-        Uri photoURI = FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", file);
-        intent.putExtra(Intent.EXTRA_STREAM,photoURI);
-        intent.setType("image/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setPackage("com.whatsapp");
-        startActivity(intent);
+        if(!imageUri.toString().equals(DEF_IMAGE)) {
+            File file = new File(imageUri.getPath());
+            Uri photoURI = FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", file);
+            intent.putExtra(Intent.EXTRA_STREAM, photoURI);
+            intent.setType("image/*");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setPackage("com.whatsapp");
+            startActivity(intent);
+        }
+        else
+            Toast.makeText(getContext(), "Cannot share default image", Toast.LENGTH_SHORT).show();
     }
-    private ArrayList<String> getEmailContent(){
+    private void shareViaEmail(){
         ArrayList<String> content = new ArrayList<>();
         String str;
         str="Item: "+itemName;
@@ -310,6 +328,19 @@ public class ViewItemDialog extends AppCompatDialogFragment {
         content.add(str);
         str="Quantity: "+itemQty+" "+itemUnit;
         content.add(str);
-        return content;
+        Log.d("CONTENT", String.valueOf(content.size()));
+        String userEmail = db.getEmail(USERNAME);
+        SendEmailService.getInstance(getContext()).emailExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                SendEmailService.getInstance(getContext()).SendItemShareMail(userEmail, USERNAME, ITEM, content, imageUri, getFileNameByUri(imageUri), getContext(), System.currentTimeMillis()/1000);
+                Log.d("EMAIL?", "sent");
+            }
+        });
+    }
+    private void setReminder(){
+        Intent intent = new Intent(getContext(), AlarmActivity.class);
+        intent.putExtra("ITEMNAME", "Buy "+ITEM);
+        startActivity(intent);
     }
 }

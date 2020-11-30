@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.yalantis.ucrop.UCrop;
@@ -45,7 +46,8 @@ public class AddItemDialog extends AppCompatDialogFragment {
     private double itemQty=0;
     private Uri imageUri=null, croppedImageUri=null;
     private String image=null;
-    private String defaultImage = "file:///data/user/0/com.example.snazzy/cache/default_item_image2087389039276620008.jpg";
+    private String defaultImage = ViewCategory.DEF_IMAGE;
+    String suggestion;
 
 
     @Override
@@ -142,8 +144,10 @@ public class AddItemDialog extends AppCompatDialogFragment {
                         if(itemName!=null && itemPrice!=0 && itemQty!=0){
                             if(croppedImageUri!=null)
                                 listener.sendItemName(itemName, itemPrice, (int) itemQty, unitName, croppedImageUri);
-                            else
+                            else{
                                 listener.sendItemName(itemName, itemPrice, (int) itemQty, unitName, Uri.parse(defaultImage));
+                                Log.d("Default Image", defaultImage);
+                            }
                         }
                         else
                             Toast.makeText(getContext(), "Please enter all values", Toast.LENGTH_SHORT).show();
@@ -184,29 +188,36 @@ public class AddItemDialog extends AppCompatDialogFragment {
             imageUri = resultData.getData();
             image = getFileNameByUri(imageUri);
             imageName.setText(image);
-        }
-
-        try
-        {
-            File temp_file = File.createTempFile("default_item_image", ".jpg");
-            croppedImageUri = Uri.fromFile(temp_file);
-            Log.d("URI", croppedImageUri.toString());
-        }
-        catch(Exception e)
-        {
-            Log.d("whoops! ", "file exception");
-        }
-        Log.d("dj", imageUri.toString());
-        UCrop.of(imageUri, croppedImageUri)
-                .withAspectRatio(1, 1)
-                .withMaxResultSize(500, 500)
-                .start(getActivity());
 
 
-        if(resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            Uri resultUri = UCrop.getOutput(resultData);
-            Log.d("Epp", resultUri.toString());
+            try {
+                File temp_file = File.createTempFile("default_item_image", ".jpg");
+                croppedImageUri = Uri.fromFile(temp_file);
+                Log.d("URI", croppedImageUri.toString());
+            } catch (Exception e) {
+                Log.d("whoops! ", "file exception");
+            }
+            Log.d("dj", imageUri.toString());
+            UCrop.of(imageUri, croppedImageUri)
+                    .withAspectRatio(1, 1)
+                    .withMaxResultSize(500, 500)
+                    .start(getActivity());
+            suggestion = TensorflowTest.infer_image(imageUri, getContext());
+            nameInput.setHint(suggestion);
+            nameInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (nameInput.getText() == null)
+                        nameInput.setText(suggestion);
+                }
+            });
+            Log.e("Tag", suggestion);
 
+            if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+                Toast.makeText(getContext(), "Toast works", Toast.LENGTH_SHORT).show();
+                Uri resultUri = UCrop.getOutput(resultData);
+                Log.d("Epp", resultUri.toString());
+            }
         }
     }
     public String getFileNameByUri(Uri uri)

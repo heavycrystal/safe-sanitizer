@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="400dp"
-    android:layout_height="360dp"
-    android:background="@color/sea_light"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentBottom="true">
-
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="700dp"
         android:padding="20dp"
         android:theme="@style/Theme.Snazzy"
         tools:context=".ViewCategory">
@@ -51,32 +43,30 @@
             android:hint="Price"
             android:inputType="numberDecimal" />
 
-        <Button
-            android:id="@+id/uploadItemImage"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/editItemName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="145dp"
-            android:layout_marginEnd="0dp"
-            android:backgroundTint="#75D4FF"
-            android:backgroundTintMode="add"
-            android:fontFamily="@font/viga"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:shadowColor="#000000"
-            android:text="Upload Image"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            android:typeface="normal"
-            android:visibility="visible"
-            app:backgroundTint="#75D4FF"
-            app:backgroundTintMode="add"
-            app:cornerRadius="50dp" />
+    <Button
+        android:id="@+id/uploadItemImage"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editItemName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="145dp"
+        android:backgroundTint="#75D4FF"
+        android:backgroundTintMode="add"
+        android:fontFamily="@font/viga"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:shadowColor="#000000"
+        android:text="Upload Image"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:backgroundTint="#75D4FF"
+        app:backgroundTintMode="add"
+        app:cornerRadius="50dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -90,7 +80,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/upBtn"
+                android:id="@+id/downBtn"
                 android:layout_width="26dp"
                 android:layout_height="17dp"
                 android:layout_gravity="center"
@@ -129,7 +119,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/downBtn"
+                android:id="@+id/upBtn"
                 android:layout_width="26dp"
                 android:layout_height="17dp"
                 android:layout_gravity="center"
@@ -157,7 +147,7 @@
 
         <Button
             android:id="@+id/whatsApp"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/uploadItemImage"
             android:layout_alignParentStart="true"
@@ -183,6 +173,18 @@
             android:text="SHARE VIA EMAIL"
             app:cornerRadius="40dp" />
 
+    <Button
+        android:id="@+id/setRem"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/whatsApp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="145dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="-1dp"
+        android:backgroundTint="#FFBF58"
+        android:text="REMIND ME"
+        app:cornerRadius="50dp" />
 
-    </RelativeLayout>
-</ScrollView>
+
+</RelativeLayout>

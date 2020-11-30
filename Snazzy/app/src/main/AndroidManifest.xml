@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/tedium_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -25,7 +25,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <activity android:name=".UserProfile"></activity>
-        <activity android:name=".TodoActivity" />
+        <activity android:name=".MainActivity_Todo" />
         <activity android:name=".AboutUs" />
         <activity android:name=".DashboardActivity" />
         <meta-data
@@ -44,15 +44,49 @@
             android:name=".ViewCategory"
             android:label="@string/title_activity_category"
             android:theme="@style/Theme.Snazzy.NoActionBar" />
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".Dashboard">
+        </activity>
 
+        <activity android:name=".SendgridTestActivity"/>
+        <activity android:name=".RegisterPhase3Activity"/>
+        <activity android:name=".RegisterPhase2Activity"/>
+        <activity android:name=".RegisterPhase1Activity"/>
+        <activity android:name=".RegistrationDoneActivity">
 
-        <activity android:name=".MainActivity" />
+        </activity>
+        <activity android:name=".LoginActivity"/>
+
+        <activity android:name=".MainActivity_Expense">
+
+        </activity>
+
+        <activity android:name=".TripSelection" />
+        <activity android:name=".GroupCreation" />
+        <activity android:name=".AddMembers" />
+        <activity android:name=".Home" />
+        <activity android:name=".Members" />
+        <activity android:name=".Add_Expenses" />
+        <activity android:name=".ExpensePieGraph" />
+        <activity android:name=".ModifyExpenses" />
+        <activity android:name=".Calculate" />
+        <activity android:name=".TripDetail" />
+
+        <activity android:name=".MainActivity">
+        </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity_Ankita" />
+
+        <activity android:name=".AlarmActivity">
+
+        </activity>
+        <receiver android:name=".NotifSender">
+            <intent-filter>
+                <action android:name="generate.notif.action" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

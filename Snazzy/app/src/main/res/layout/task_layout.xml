@@ -1,7 +1,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardElevation="4dp"
     app:cardCornerRadius="8dp"
     android:layout_marginHorizontal="16dp"
@@ -11,15 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp">
-        
+
         <CheckBox
-            android:id="@+id/todocheckbox"
+            android:id="@+id/todoCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:paddingStart="8dp"
-            android:text="Sampel"
-            android:buttonTint="@android:color/holo_purple"/>
-        
+            android:buttonTint="@color/azure"
+            tools:text="Go to the market and bring meat immediately today."/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

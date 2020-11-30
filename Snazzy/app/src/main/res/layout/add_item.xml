@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Dashboard"
-    android:background="@color/sea_light"
+    android:background="@color/white"
     android:padding="20dp"
-    android:theme="@style/Theme.Snazzy">
+    android:theme="@style/Theme.Snazzy"
+    tools:context=".Dashboard">
 
     <EditText
         android:id="@+id/editItemName"

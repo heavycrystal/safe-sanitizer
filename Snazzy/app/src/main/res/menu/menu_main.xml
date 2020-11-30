@@ -10,7 +10,7 @@
 
         <item
             android:id="@+id/nav_dash"
-            android:icon="@drawable/basket"
+            android:icon="@drawable/basket_bw"
             android:title="Dashboard" />
 
         <item

@@ -1,17 +1,21 @@
 package com.example.snazzy;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.Hashtable;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+
+import org.jetbrains.annotations.NotNull;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -19,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String USERNAME = "username";
     public static final String EMAILID = "emailID";
     public static final String PHONE = "phone";
-    public static final String PASSWORD = "password";
+    public static final String PROF = "prof";
     public static final String ITEM = "item";
     public static final String CATEGORY = "category";
     public static final String IMAGE = "image";
@@ -29,6 +33,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String PRICE = "price";
     public static final String QTY = "quantity";
     public static final String UNIT = "unit";
+    public static final String REMINDERS = "REMINDERS";
+    public static final String AL_NAME = "NAME";
+    public static final String AL_TIME = "TIME";
+    public static final String AL_DATE = "DATE";
+    public static final String AL_ID = "ID";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -38,7 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL(
                 "create table USERS " +
-                        "(username text primary key, emailID text,phone text, password text)"
+                        "(username text primary key, emailID text, phone text, prof text)"
         );
         db.execSQL(
                 "create table CATEGORIES"+
@@ -48,24 +57,29 @@ public class DBHelper extends SQLiteOpenHelper {
                 "create table ITEMS"+
                         "(username text, category text, item text, price float, quantity integer, unit text, image text)"
         );
+        db.execSQL(
+                "create table REMINDERS"+
+                        "(username text, category text, item text, name text, time text, date text, ID integer)"
+        );
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE "+CATEGORIES);
         db.execSQL("DROP TABLE "+ITEMS);
         db.execSQL("DELETE FROM "+ITEMS);
+        db.execSQL("DROP TABLE "+USERS);
+
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public boolean addUser (String username, String email, String password, String phone){
+    public boolean addUser (String username, String email, String phone, String profession)
+    {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         {
             cv.put(USERNAME, username);
             cv.put(EMAILID, email);
             cv.put(PHONE, phone);
-            cv.put(PASSWORD, Base64.getEncoder()
-                    .encodeToString(password.getBytes()));
+            cv.put(PROF, profession);
         }
         Cursor cursor = db.query(
                 USERS,   // The table to query
@@ -83,14 +97,79 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-    public boolean editUser (String username, String email, Integer phone){
+    public boolean checkUniqueUser(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                USERS,   // The table to query
+                new String[]{USERNAME},
+                "username = ?",
+                new String[]{username},
+                null,
+                null,
+                null
+        );
+        if (cursor.moveToNext()) {
+            Log.d("USERNAME EXISTS", cursor.getString(cursor.getColumnIndex(USERNAME)));
+            return false;
+        }
+        else
+            return true;
+    }
+
+    public String getProf(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(
+                USERS,   // The table to query
+                new String[]{PROF},
+                "username = ?",
+                new String[]{username},
+                null,
+                null,
+                null
+        );
+        cursor.moveToNext();
+        String profession = cursor.getString(cursor.getColumnIndex(PROF));
+        return profession;
+    }
+    public String getUsername(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(
+                USERS,   // The table to query
+                new String[]{USERNAME},
+                "emailID = ?",
+                new String[]{email},
+                null,
+                null,
+                null
+        );
+        cursor.moveToNext();
+        String username = cursor.getString(cursor.getColumnIndex(USERNAME));
+        return username;
+    }
+    public String getEmail(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(
+                USERS,   // The table to query
+                new String[]{EMAILID},
+                "username = ?",
+                new String[]{username},
+                null,
+                null,
+                null
+        );
+        cursor.moveToNext();
+        String email = cursor.getString(cursor.getColumnIndex(EMAILID));
+        return email;
+    }
+    public boolean editUser (String username, String email, Integer phone, String profession){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        {
-            cv.put(USERNAME, username);
+        {   cv.put(USERNAME, username);
             cv.put(EMAILID, email);
             cv.put(PHONE, phone);
+            cv.put(PROF, profession);
         }
+        deleteUser(username);
         db.insert("USERS", null, cv);
         return true;
     }
@@ -98,7 +177,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Integer changeUserPassword (String username, String oldPassword, String newPassword){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        String[] cols = {PASSWORD};
+        String[] cols = {PROF};
         Cursor cursor = db.query(
                 "USERS",   // The table to query
                 new String[]{"password"},
@@ -108,12 +187,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 null,
                 null
         );
-        String pass = cursor.getString(cursor.getColumnIndexOrThrow(PASSWORD));
+        String pass = cursor.getString(cursor.getColumnIndexOrThrow(PROF));
         oldPassword = Base64.getEncoder()
                 .encodeToString(oldPassword.getBytes());
         if (pass == oldPassword) {
             newPassword = Base64.getEncoder().encodeToString(newPassword.getBytes());
-            cv.put(PASSWORD, newPassword);
+            cv.put(PROF, newPassword);
             int count = db.update(
                     "USERS",
                     cv,
@@ -144,7 +223,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 "USERS",   // The table to query
-                null,
+                new String[]{EMAILID, PHONE, PROF},
                 "username = ?",
                 new String[]{username},
                 null,
@@ -153,12 +232,12 @@ public class DBHelper extends SQLiteOpenHelper {
         );
         ArrayList<String> data = new ArrayList<>();
         while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(USERNAME));
             String email = cursor.getString(cursor.getColumnIndex(EMAILID));
             String phone = cursor.getString(cursor.getColumnIndex(PHONE));
-            data.add(name);
+            String profession = cursor.getString(cursor.getColumnIndex(PROF));
             data.add(email);
             data.add(phone);
+            data.add(profession);
         }
         return data;
     }
@@ -185,8 +264,24 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(
                 "CATEGORIES",   // The table to query
                 new String[]{USERNAME, CATEGORY},
-                "username = ?",
+                "username = ? ",
                 new String[] {username},
+                null,
+                null,
+                null
+        );
+        while(cursor.moveToNext())
+            catList.add(cursor.getString(cursor.getColumnIndex(CATEGORY)));
+        return catList;
+    }
+    public ArrayList<String> getAlikeCategories(String username, String query){
+        ArrayList<String> catList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                "CATEGORIES",   // The table to query
+                new String[]{CATEGORY},
+                "username = ? AND UPPER(category) LIKE ? ",
+                new String[] {username, "%"+query.toUpperCase()+"%"},
                 null,
                 null,
                 null
@@ -218,7 +313,6 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-    //add a getCategory function
     public boolean editCategory(String username, String newCategory, String oldCategory){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("CATEGORIES", "username = ? AND category = ?", new String[]{username, oldCategory});
@@ -232,21 +326,6 @@ public class DBHelper extends SQLiteOpenHelper {
         for(String item: itemArray)
             deleteItem(username, category, item);
         return true;
-    }
-    public String getCategoryImage(String username, String category){
-        String image;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
-                "CATEGORIES",   // The table to query
-                new String[]{IMAGE},
-                "username = ? AND category = ?",
-                new String[] {username, category},
-                null,
-                null,
-                null
-        );
-        cursor.moveToFirst();
-        return cursor.getString(cursor.getColumnIndex(IMAGE));
     }
 
     //functions that work on items
@@ -274,6 +353,46 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ITEMS,"username = ? AND item = ? AND category=?",new String[] { username, item, category });
         return true;
+    }
+    public ArrayList<String> getAlikeItemList(String username, String query){
+        ArrayList<String> itemList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                true,
+                ITEMS,   // The table to query
+                new String[]{ITEM},
+                "username = ? AND UPPER(item) LIKE ?",
+                new String[]{username, "%"+query.toUpperCase()+"%"},
+                null,
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext()) {
+            String itemName = cursor.getString(cursor.getColumnIndex(ITEM));
+            Log.d("MATCHED ITEM", itemName);
+            itemList.add(itemName);
+        }
+        return itemList;
+    }
+    public HashMap<String, String> getAlikeItemMap(String username, String query) {
+        HashMap<String, String> itemMap = new HashMap<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ITEMS,   // The table to query
+                new String[]{ITEM, CATEGORY},
+                "username = ? AND UPPER(item) LIKE ?",
+                new String[]{username, "%"+query.toUpperCase()+"%"},
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext()) {
+            String itemName = cursor.getString(cursor.getColumnIndex(ITEM));
+            String itemCat = cursor.getString(cursor.getColumnIndex(CATEGORY));
+            itemMap.put(itemName, itemCat);
+        }
+        return itemMap;
     }
     public boolean editItem(String username, String category, String oldItem, String newItem, double price, Integer qty, String unit, String imageUri){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -350,4 +469,95 @@ public class DBHelper extends SQLiteOpenHelper {
         return itemArray;
     }
 
+
+    //functions that work on reminders
+    public boolean setReminder(String username, String item, String name, String time, String date, int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        {
+            cv.put(USERNAME, username);
+            cv.put(ITEM, item);
+            cv.put(AL_NAME, name);
+            cv.put(AL_TIME, time);
+            cv.put(AL_DATE, date);
+            cv.put(AL_ID, ID);
+        }
+        Cursor cursor = db.rawQuery("SELECT item FROM REMINDERS WHERE username = ? AND item = ?", new String[]{item, name});
+        if(cursor.moveToFirst())
+            return false;
+        else {
+            db.insert(REMINDERS, null, cv);
+            return true;
+        }
+    }
+    public ArrayList<String> getReminderData(String username, String item){
+        ArrayList<String> dataList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                true,
+                REMINDERS,   // The table to query
+                new String[]{AL_NAME, AL_TIME, AL_DATE, AL_ID},
+                "username = ? AND item = ?",
+                new String[]{item},
+                null,
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(AL_NAME));
+            dataList.add(name);
+            String time = cursor.getString(cursor.getColumnIndex(AL_TIME));
+            dataList.add(time);
+            String date = cursor.getString(cursor.getColumnIndex(AL_DATE));
+            dataList.add(date);
+            int id = cursor.getInt(cursor.getColumnIndex(AL_ID));
+            dataList.add(String.valueOf(id));
+            Log.d("MATCHED NAME", name);
+        }
+        return dataList;
+    }
+    public ArrayList<String> getRemList(String username) {
+        ArrayList<String> remList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                true,
+                REMINDERS,   // The table to query
+                new String[]{ITEM},
+                "username = ?",
+                new String[]{username},
+                null,
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext()) {
+            String item = cursor.getString(cursor.getColumnIndex(ITEM));
+            remList.add(item);
+        }
+        return remList;
+    }
+    public HashMap<String,ArrayList<String>> getReminderMap(String username){
+        ArrayList<String> remList = new ArrayList<>();
+        HashMap<String, ArrayList<String>> remMap = new HashMap<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                true,
+                REMINDERS,   // The table to query
+                new String[]{ITEM},
+                "username = ? ",
+                new String[]{username},
+                null,
+                null,
+                null,
+                null
+        );
+        while (cursor.moveToNext()) {
+            String item = cursor.getString(cursor.getColumnIndex(ITEM));
+            remList.add(item);
+            ArrayList<String> remData = getReminderData(username, item);
+            remMap.put(item, remData);
+        }
+        return remMap;
+    }
 }

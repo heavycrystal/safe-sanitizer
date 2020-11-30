@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity_Ankita extends AppCompatActivity {
-    public static final String MESSAGE = "com.example.snazzy.MESSAGE";
+    public static final String MESSAGE = "MESSAGE";
     public static String USER = "user1"; //updated on login
     private static final String TAG = null;
     @Override

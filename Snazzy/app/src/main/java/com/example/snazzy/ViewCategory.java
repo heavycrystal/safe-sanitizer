@@ -23,21 +23,38 @@ public class ViewCategory extends AppCompatActivity implements AddItemDialog.Ite
     DBHelper db;
     LinearLayout ll;
     View v;
-    public static String USERNAME = MainActivity_Ankita.USER;
-    public static String CATEGORY;
-    public static String SELECTED_ITEM=null;
+    Uri uri;
+
+    public static String DEF_IMAGE;
+    public static String USERNAME = Dashboard.USERNAME;
+    public static String PROFESSION = Dashboard.PROFESSION;
+    public static String CATEGORY, OPEN_ITEM;
+    public static String SELECTED_ITEM = null;
     public String ADD_SUCCESS, EDIT_SUCCESS, DEL_SUCCESS;
     String itemArray[];
     HashMap<String, ArrayList<String>> itemMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+        if(PROFESSION.equals("Student"))
+            setContentView(R.layout.student_view_category_activity);
+        else if(PROFESSION.equals("Professional"))
+            setContentView(R.layout.professional_view_category_activity);
+        else if(PROFESSION.equals("Homemaker"))
+            setContentView(R.layout.homemaker_view_category_activity);
+
         intent = getIntent();
-        CATEGORY = intent.getStringExtra(MainActivity_Ankita.MESSAGE);
+        CATEGORY = intent.getStringExtra(MainActivity.MESSAGE);
+        OPEN_ITEM = intent.getStringExtra("ITEM");
+
+        if(OPEN_ITEM!=null)
+            viewItemDialog(OPEN_ITEM);
+
         TextView catName = findViewById(R.id.catName);
         catName.setText(CATEGORY.toUpperCase());
         db = new DBHelper(this);
+        uri = Uri.parse("android.resource://com.example.snazzy/drawable/default_item_image");
+        DEF_IMAGE = uri.toString();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setTag(CATEGORY);
@@ -47,10 +64,14 @@ public class ViewCategory extends AppCompatActivity implements AddItemDialog.Ite
                 showItemDialog(view);
             }
         });
-
+        FloatingActionButton dashSearch = findViewById(R.id.dashSearch);
+        dashSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSearchDialog(view);
+            }
+        });
         createList();
-
-
     }
     private void createList(){
         ll = findViewById(R.id.ll);
@@ -59,7 +80,12 @@ public class ViewCategory extends AppCompatActivity implements AddItemDialog.Ite
         itemArray = db.getItemArray(USERNAME, CATEGORY);
         itemMap = db.getItemMap(USERNAME, CATEGORY);
         for(String item: itemArray){
-            v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.my_text_view, null);
+            if(PROFESSION.equals("Student"))
+                v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.stud_item_layout, null);
+            else if(PROFESSION.equals("Professional"))
+                v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.prof_item_layout, null);
+            else if(PROFESSION.equals("Homemaker"))
+                v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.home_item_layout, null);
 
             ((Button)v.findViewById(R.id.item)).setText(item);
             v.findViewById(R.id.item).setTag(item);
@@ -72,7 +98,7 @@ public class ViewCategory extends AppCompatActivity implements AddItemDialog.Ite
                 @Override
                 public void onClick(View view) {
                     SELECTED_ITEM = view.getTag().toString();
-                    viewItemDialog(view);
+                    viewItemDialog(SELECTED_ITEM);
                 }
             });
         }
@@ -87,8 +113,12 @@ public class ViewCategory extends AppCompatActivity implements AddItemDialog.Ite
         super.onRestart();
         Log.d("dbtrial", "onRestart called");
     }
-    public void viewItemDialog(View v){
-        ViewItemDialog.selectedItem(USERNAME, CATEGORY, v.getTag().toString());
+    public void showSearchDialog(View view){
+        SearchDialog dialog = new SearchDialog();
+        dialog.show(getSupportFragmentManager(), "dialog");
+    }
+    public void viewItemDialog(String selected_item){
+        ViewItemDialog.selectedItem(USERNAME, CATEGORY, selected_item);
         ViewItemDialog newDialog = new ViewItemDialog();
         newDialog.show(getSupportFragmentManager(), "dialog");
         Log.d("dbtrial", "inside ShowItemDialog");
